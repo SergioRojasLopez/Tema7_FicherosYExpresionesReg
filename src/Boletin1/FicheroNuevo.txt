@@ -1,4 +1,0 @@
-Hola. Esta es la primera línea
-de un fichero
-que tiene algunas
-líneas más.

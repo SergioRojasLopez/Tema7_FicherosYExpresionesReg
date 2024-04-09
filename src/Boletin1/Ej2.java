@@ -24,11 +24,13 @@ public class Ej2 {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        Con Java NIO:*/
 
+        Con Java NIO:*/
         Path path = Paths.get(".\\src\\Boletin1\\FicheroNuevo.txt");
         try{
-            Stream<String> =
+            //Stream<String> =
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
     }
