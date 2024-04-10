@@ -116,13 +116,13 @@ public class MiEntradaSalida {
     }
 
     public static char leerCaracterSN(String mensaje) {
-        char cracterIntroducido = ' ';
+        char caracterIntroducido = ' ';
         boolean ok = false;
         while (!ok) {
             System.out.println(mensaje);
             try {
-                cracterIntroducido = sc.next().toUpperCase(Locale.ROOT).charAt(0);
-                if (cracterIntroducido == 'S' || cracterIntroducido == 'N') {
+                caracterIntroducido = sc.next().toUpperCase(Locale.ROOT).charAt(0);
+                if (caracterIntroducido == 'S' || caracterIntroducido == 'N') {
                     ok = true;
                 } else {
                     System.out.println("El caracter introducido debe ser S o N");
@@ -132,7 +132,7 @@ public class MiEntradaSalida {
                 System.out.println("Esta fuera de rango");
             }
         }
-        return cracterIntroducido;
+        return caracterIntroducido;
     }
 
     public static String solicitarCadenaMayus(String mensaje) {
