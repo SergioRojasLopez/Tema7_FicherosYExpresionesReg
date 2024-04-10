@@ -27,6 +27,9 @@ public class Ej2 {
         Con Java NIO:*/
 
         Path path = Paths.get(".\\src\\Boletin1\\FicheroNuevo.txt");
+        try{
+            Stream<String> =
+        }
 
     }
 }
