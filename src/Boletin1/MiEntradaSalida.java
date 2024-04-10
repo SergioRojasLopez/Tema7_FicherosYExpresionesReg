@@ -39,18 +39,17 @@ public class MiEntradaSalida {
         return leerDouble;
     }
 
-    public static int leerEnteroDeRango(String mensaje, int numMax, int nunMin) {
+    public static int leerEnteroDeRango(String mensaje, int numMin, int numMax) {
         int opcionIntroducido = 0;
-        boolean enRango = false;
-        while (!enRango) {
+        boolean enteroRango = false;
+        while (!enteroRango) {
             try {
                 System.out.println(mensaje);
                 opcionIntroducido = Integer.parseInt(sc.nextLine());
-                if (opcionIntroducido > nunMin && opcionIntroducido < numMax) {
-                    enRango = true;
+                if (opcionIntroducido >= numMin && opcionIntroducido <= numMax) {
+                    enteroRango = true;
                 } else {
                     System.out.println("Numero fuera del rango.");
-
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Tienes que introducir un número.");

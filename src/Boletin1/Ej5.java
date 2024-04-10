@@ -3,13 +3,15 @@ package Boletin1;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Ej5 {
     public static void main(String[] args) throws IOException {
         int opcion;
         do {
             menu();
-            opcion = MiEntradaSalida.leerEnteroDeRango("Elije una opcion", 5, 1);
+            opcion = MiEntradaSalida.leerEnteroDeRango("Elije una opcion", 1, 5);
             switch (opcion) {
                 case 1:
                     crearDirectorio();
@@ -20,6 +22,12 @@ public class Ej5 {
                 case 3:
                     borrarFichero();
                     break;
+                case 4:
+                    mostrarFicheros();
+                    break;
+                case 5:
+                    break;
+
             }
         } while (opcion != 5);
     }
@@ -53,35 +61,54 @@ public class Ej5 {
 
         String nombre = MiEntradaSalida.solicitarCadenaMinus("Elija el nombre del fichero");
         boolean append = true;
-        File ficheroTexto = new File("./src/Boletin1/" + nombre);
+        File ficheroTexto = new File(".\\src\\Boletin1\\" + nombre);
         if (ficheroTexto.exists()) {
             if (ficheroTexto.isFile()) {
                 append = (MiEntradaSalida.leerCaracterSN("Quiere annadir el contenido al final del fichero?") == 'S');
-            }
-            else {
+            } else {
                 System.out.println("El fichero no ha podido crearse, ya existe un directorio con ese nombre");
                 return;
             }
         }
         String cadena = MiEntradaSalida.solicitarCadenaMinus("Escriba la cadena que estara en el fichero");
 
-        try (PrintWriter pw = new PrintWriter(new FileWriter(ficheroTexto,append))){
+        try (PrintWriter pw = new PrintWriter(new FileWriter(ficheroTexto, append))) {
             pw.println(cadena);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static void borrarFichero(){
+    public static void borrarFichero() {
 
         String nombre = MiEntradaSalida.solicitarCadenaMinus("Elija el nombre del fichero");
-        File ficheroABorrar = new File(nombre);
-        if (!ficheroABorrar.exists()){
+        File ficheroABorrar = new File(".\\src\\Boletin1\\" + nombre);
+        if (!ficheroABorrar.exists()) {
             System.out.println("El nombre del fichero no existe");
-        }else {
+        } else {
             ficheroABorrar.delete();
-            System.out.println("Se ha borrado el fichero correctamente " + nombre);
+            System.out.println("Se ha borrado el fichero " + nombre + " correctamente" );
         }
+    }
 
+    public static void mostrarFicheros() {
+
+        String nombre = MiEntradaSalida.solicitarCadenaMinus("Elija el nombre del directorio");
+        File directorio = new File(".\\src\\Boletin1\\" + nombre);
+
+        if (directorio.exists()) {
+            if (directorio.isDirectory()) {
+                File[] fichero = directorio.listFiles();
+                if (fichero != null) {
+                    for (File fich : fichero) {
+                        System.out.println(fich.getName());
+                    }
+                } else {
+                    System.out.println("El directorio esta vacio");
+                }
+            }
+        } else {
+            System.out.println("El nombre del directorio no existe");
+        }
     }
 }
