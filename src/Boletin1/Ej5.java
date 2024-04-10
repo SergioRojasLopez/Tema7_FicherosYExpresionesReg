@@ -101,7 +101,10 @@ public class Ej5 {
                 File[] fichero = directorio.listFiles();
                 if (fichero != null) {
                     for (File fich : fichero) {
-                        System.out.println(fich.getName());
+                        System.out.println("Nombre fichero: " + fich.getName());
+                        long tamBytes = fich.length();
+                        double tamKb = (double) tamBytes / 1024;
+                        System.out.println("peso en KB: " + tamKb);
                     }
                 } else {
                     System.out.println("El directorio esta vacio");
