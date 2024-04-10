@@ -36,7 +36,7 @@ public class Ej5 {
 
     public static void crearDirectorio() {
         String nombre = MiEntradaSalida.solicitarCadenaMinus("Elija el nombre del directorio");
-        File directorio = new File("/src/Boletin1/" + nombre);
+        File directorio = new File(".\\src\\Boletin1\\" + nombre);
 
         if (directorio.exists()) {
             System.out.println("El directorio ya existe");
@@ -53,7 +53,7 @@ public class Ej5 {
 
         String nombre = MiEntradaSalida.solicitarCadenaMinus("Elija el nombre del fichero");
         boolean append = true;
-        File ficheroTexto = new File("/src/Boletin1/" + nombre);
+        File ficheroTexto = new File("./src/Boletin1/" + nombre);
         if (ficheroTexto.exists()) {
             if (ficheroTexto.isFile()) {
                 append = (MiEntradaSalida.leerCaracterSN("Quiere annadir el contenido al final del fichero?") == 'S');
@@ -75,11 +75,11 @@ public class Ej5 {
     public static void borrarFichero(){
 
         String nombre = MiEntradaSalida.solicitarCadenaMinus("Elija el nombre del fichero");
-        File fichero = new File(nombre);
-        if (!fichero.exists()){
+        File ficheroABorrar = new File(nombre);
+        if (!ficheroABorrar.exists()){
             System.out.println("El nombre del fichero no existe");
         }else {
-            fichero.delete();
+            ficheroABorrar.delete();
             System.out.println("Se ha borrado el fichero correctamente " + nombre);
         }
 
