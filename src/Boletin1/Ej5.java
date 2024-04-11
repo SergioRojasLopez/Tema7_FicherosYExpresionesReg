@@ -2,6 +2,7 @@ package Boletin1;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -86,8 +87,11 @@ public class Ej5 {
         if (!ficheroABorrar.exists()) {
             System.out.println("El nombre del fichero no existe");
         } else {
-            ficheroABorrar.delete();
-            System.out.println("Se ha borrado el fichero " + nombre + " correctamente" );
+            if (ficheroABorrar.delete()){
+                System.out.println("Se ha borrado el fichero " + nombre + " correctamente" );
+            }else {
+                System.out.println("El fichero no ha podido ser borrado");
+            }
         }
     }
 
@@ -96,11 +100,37 @@ public class Ej5 {
         String nombre = MiEntradaSalida.solicitarCadenaMinus("Elija el nombre del directorio");
         File directorio = new File(".\\src\\Boletin1\\" + nombre);
 
+
         if (directorio.exists()) {
             if (directorio.isDirectory()) {
                 File[] fichero = directorio.listFiles();
-                if (fichero != null) {
+                if (fichero.length > 0) {
                     for (File fich : fichero) {
+                        System.out.println("Nombre fichero: " + fich.getName());
+                        long tamBytes = fich.length();
+                        double tamKb = (double) tamBytes / 1024;
+                        System.out.println("peso en KB: " + tamKb);
+
+                    }
+                } else {
+                    System.out.println("El directorio esta vacio");
+                }
+            }
+        } else {
+            System.out.println("El nombre del directorio no existe");
+        }
+    }
+
+    public static void mostrarFicheros2 (){
+
+        String nombre = MiEntradaSalida.solicitarCadenaMinus("Elija el nombre del directorio");
+        File directorio = new File(".\\src\\Boletin1\\" + nombre);
+
+        if (directorio.exists()) {
+            if (directorio.isDirectory()) {
+                File[] ficheros = directorio.listFiles(File::isFile);
+                if (ficheros.length > 0) {
+                    for (File fich : ficheros) {
                         System.out.println("Nombre fichero: " + fich.getName());
                         long tamBytes = fich.length();
                         double tamKb = (double) tamBytes / 1024;
@@ -111,6 +141,18 @@ public class Ej5 {
                 }
             }
         } else {
+            System.out.println("El nombre del directorio no existe");
+        }
+    }
+
+    public static void mostrarFicheros3 () throws IOException {
+
+        String nombre = MiEntradaSalida.solicitarCadenaMinus("Elija el nombre del directorio");
+        Path path = Paths.get(".\\src\\Boletin1\\" + nombre);
+
+        if (Files.exists(path) && Files.isDirectory(path)){
+            Files.list(path).filter(Files::isRegularFile).forEach(System.out::println);
+        }else {
             System.out.println("El nombre del directorio no existe");
         }
     }
