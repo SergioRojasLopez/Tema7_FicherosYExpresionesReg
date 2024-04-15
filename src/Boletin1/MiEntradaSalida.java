@@ -187,5 +187,4 @@ public class MiEntradaSalida {
 
         return opciones[opcionElegida - 1];
     }
-
 }
