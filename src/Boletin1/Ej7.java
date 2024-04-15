@@ -90,7 +90,7 @@ public class Ej7 {
 
         try (Stream<Path> ficheros = Files.list(directorioNuevo)) {
             ficheros.filter(Files::isRegularFile)
-                    .filter(a -> a.endsWith("." + cadenaFiltrar))
+                    .filter(a -> a.toString().endsWith("." + cadenaFiltrar))
                     .forEach(a -> {
                         try {
                             System.out.println(a.getFileName().toString() + "-" + Files.size(a) / 1024 + "Kb");
