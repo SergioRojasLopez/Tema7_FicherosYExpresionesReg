@@ -27,7 +27,6 @@ public class Ej5 {
                     break;
                 case 5:
                     break;
-
             }
         } while (opcion != 5);
     }

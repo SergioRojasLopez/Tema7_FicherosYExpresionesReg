@@ -17,7 +17,7 @@ public class Ej7 {
         int opcion;
         do {
             menu();
-            opcion = MiEntradaSalida.leerEnteroDeRango("Elije una opcion", 1, 5);
+            opcion = MiEntradaSalida.leerEnteroDeRango("Elije una opcion", 1, 6);
             switch (opcion) {
                 case 1:
                     listarDirectorio(directorio);
@@ -29,15 +29,15 @@ public class Ej7 {
                     listarPorExtension();
                     break;
                 case 4:
-
+                    buscarArchivoEnDirectorio(directorio);
                     break;
                 case 5:
-
+                    String nombreArchivo = MiEntradaSalida.solicitarCadenaMinus("Escriba el nombre del archivo que quieres buscar");
+                    buscarArchivoRecurEnDirectorio(directorio, nombreArchivo);
                     break;
                 case 6:
-
+                    System.out.println("Saliendo del programa, gracias");
                     break;
-
             }
         } while (opcion != 6);
     }
@@ -54,7 +54,6 @@ public class Ej7 {
     public static void listarDirectorio(File directorio) {
 
         File[] archivos = directorio.listFiles();
-
         if (archivos == null || archivos.length == 0) {
             System.out.println("El directorio esta vacio");
         } else {
@@ -72,13 +71,11 @@ public class Ej7 {
 
         String cadenaFiltrar = MiEntradaSalida.solicitarCadenaMinus("Escribe las letras por las que empiece tu fichero");
         File[] files = directorio.listFiles(((dir, name) -> name.startsWith(cadenaFiltrar)));
-
         for (File file : files) {
             if (file.isDirectory()) {
                 System.out.println(file.getName() + " [Directorio] ");
             } else {
                 System.out.println(file.getName() + "-" + file.length() / 1024 + " Kb");
-
             }
         }
     }
@@ -87,7 +84,6 @@ public class Ej7 {
 
         String cadenaFiltrar = MiEntradaSalida.solicitarCadenaMinus("Escribe la extension para buscar el fichero");
         Path directorioNuevo = Paths.get(".\\src\\Boletin1\\pruebaej5");
-
         try (Stream<Path> ficheros = Files.list(directorioNuevo)) {
             ficheros.filter(Files::isRegularFile)
                     .filter(a -> a.toString().endsWith("." + cadenaFiltrar))
@@ -101,6 +97,37 @@ public class Ej7 {
                     });
         } catch (IOException e) {
             System.out.println("Ocurrio un error al cerrar el fichero");
+        }
+    }
+
+    public static void buscarArchivoEnDirectorio(File directorio) {
+
+        String nombreArchivo = MiEntradaSalida.solicitarCadenaMinus("Escriba el nombre del archivo");
+        File[] files = directorio.listFiles(((dir, name) -> name.equals(nombreArchivo)));
+        if (files != null) {
+            for (File file : files) {
+                if (!file.isDirectory() && file.exists()) {
+                    System.out.println(file.getAbsolutePath() + " " + (file.length() / 1024 + " Kb "));
+                }
+            }
+        }else {
+            System.out.println("El archivo esta vacio");
+        }
+    }
+
+    public static void buscarArchivoRecurEnDirectorio(File directorio, String nombreArchivo) {
+
+        File[] files = directorio.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    buscarArchivoRecurEnDirectorio(file, nombreArchivo);
+                } else if (file.getName().equals(nombreArchivo)) {
+                    System.out.println(file.getAbsolutePath());
+                }
+            }
+        } else {
+            System.out.println("El directorio esta vacio o no existe");
         }
     }
 }
