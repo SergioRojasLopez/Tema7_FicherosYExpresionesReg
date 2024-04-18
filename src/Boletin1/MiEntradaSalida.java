@@ -173,6 +173,26 @@ public class MiEntradaSalida {
 
         return cadena;
     }
+    public static String solicitarCadena(String mensaje) {
+        String cadena = "";
+        boolean ok = true;
+
+        while (ok) {
+            System.out.println(mensaje);
+            try {
+                cadena = sc.nextLine();
+                if (cadena.length() > 0) {
+                    // Si llegamos hasta aquí, es porque el usuario ha introducido un dato correcto y no se ha lanzado ninguna excepción.
+                    ok = false;
+                }
+            } catch (NoSuchElementException e) {
+                System.out.println("No has introducido elementos");
+            }
+        }
+
+        return cadena;
+    }
+
 
     public static String leerOpciones(String mensaje, String[] opciones) {
         int opcionElegida = 0;
