@@ -16,8 +16,8 @@ import java.util.stream.Stream;
 public class Ej9 {
     public static void main(String[] args) {
 
-        Path path = Paths.get(".\\src\\Boletin1\\matriculas");
-        Path path2 = Paths.get(".\\src\\Boletin1\\matriculasNuevas");
+        Path path = Paths.get(".\\src\\Boletin1\\pruebaEj9\\matriculas");
+        Path path2 = Paths.get(".\\src\\Boletin1\\pruebaEj9\\matriculasNuevas");
         Pattern pt = Pattern.compile("\\p{L}+\\s(\\d{4}-[A-Z&&[^AEIOU]]{3})");
 
         try (BufferedWriter writer = Files.newBufferedWriter(path2, StandardOpenOption.TRUNCATE_EXISTING,StandardOpenOption.CREATE);
