@@ -25,8 +25,11 @@ public class Ej10 {
                     .forEach(matcher -> {
                         try {
                             Files.createFile(direcDestino.resolve(matcher.group(1)));
+                            System.out.println("Se ha creado el fichero " + matcher.group(1));
                         } catch (FileAlreadyExistsException e) {
                             System.out.println("Ya existe el fichero " + matcher.group(1));
+                        }catch (IOException e){
+                            System.out.println("No se pudo crear el fichero " + matcher.group(1));
                         }
                     });
         } catch (IOException e) {
