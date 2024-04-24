@@ -19,6 +19,7 @@ public class Ej2 {
             Element raiz = doc.getDocumentElement();
             Element titulo = (Element) raiz.getElementsByTagName("title").item(0);
             System.out.println(titulo.getTextContent());
+            System.out.printf("En la pagina hay %d divisores ",raiz.getElementsByTagName("div").getLength());
         } catch (ParserConfigurationException e) {
             throw new RuntimeException(e);
         } catch (SAXException e) {
