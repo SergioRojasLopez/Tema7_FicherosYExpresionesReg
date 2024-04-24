@@ -20,7 +20,7 @@ public class Ej2 {
             Element raiz = doc.getDocumentElement();
             Element titulo = (Element) raiz.getElementsByTagName("title").item(0);
 
-            System.out.println("El titulo de la pagina se llama" + titulo.getTextContent());
+            System.out.println("El titulo de la pagina se llama : " + titulo.getTextContent()+ "\n");
 
             System.out.printf("En la pagina hay %d divisores \n",raiz.getElementsByTagName("div").getLength());
 
@@ -32,13 +32,13 @@ public class Ej2 {
                     contDivVal++;
                 }
             }
-            System.out.printf("En la página hay %d divisores con valor",contDivVal);
+            System.out.printf("En la página hay %d divisores con valor \n",contDivVal);
 
             NodeList imgValor = doc.getElementsByTagName("img");
             for (int i = 0; i < imgValor.getLength(); i++) {
                 Element elemento = (Element) imgValor.item(i);
                 if (!elemento.getAttribute("alt").isBlank()) {
-                    System.out.println("Texto de la imagen : " + elemento.getAttribute("alt"));
+                    System.out.println("Texto de la imagen : " + elemento.getAttribute("alt")+ "\n");
                 }
             }
             NodeList todosLosDivisores = doc.getElementsByTagName("div");
@@ -46,14 +46,34 @@ public class Ej2 {
                 Element elemento = (Element) todosLosDivisores.item(i);
                 if (elemento.getAttribute("class").equals("noticia")) {
                     String titular = elemento.getElementsByTagName("h2").item(0).getTextContent();
-                    System.out.println("Titular: " + titular);
+                    System.out.println("Titular: " + titular + "\n");
                     String textoAlter = ((Element) elemento.getElementsByTagName("img").item(0)).getAttribute("alt");
-                    System.out.println("Texto de imagen alternativo : " + textoAlter);
+                    System.out.printf("Texto de imagen alternativo : " + textoAlter + "\n");
                 }
             }
-        } catch (ParserConfigurationException e) {
-            throw new RuntimeException(e);
-        } catch (SAXException e) {
+            NodeList menuPrincipal = doc.getElementsByTagName("div");
+            for (int i = 0; i < menuPrincipal.getLength(); i++){
+                Element elemento = (Element) menuPrincipal.item(i);
+                if (elemento.getAttribute("id").equals("menu-principal")){
+                    NodeList acciones = elemento.getElementsByTagName("li");
+                    System.out.println("Menu: ");
+                    for (int j = 0; j < acciones.getLength();j++){
+                        Element elemento2 = (Element) acciones.item(j);
+                        System.out.println(elemento2.getTextContent());
+                    }
+                }
+            }
+            NodeList todasNoticias = doc.getElementsByTagName("div");
+            for (int i = 0; i < todosLosDivisores.getLength(); i++) {
+                Element elemento = (Element) todasNoticias.item(i);
+                if (elemento.getAttribute("class").equals("noticia")) {
+                    String titular = elemento.getElementsByTagName("h2").item(0).getTextContent();
+                    System.out.println("Titular: " + titular);
+                    String textoDesc = ((Element)elemento.getElementsByTagName("p").item(0)).getTextContent();
+                    System.out.println("Descipcion: " + textoDesc);
+                }
+            }
+        } catch (ParserConfigurationException | SAXException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
             System.out.println("Error de lectura");
