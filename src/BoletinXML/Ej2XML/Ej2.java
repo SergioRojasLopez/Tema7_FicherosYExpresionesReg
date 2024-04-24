@@ -1,4 +1,4 @@
-package BoletinXML;
+package BoletinXML.Ej2XML;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -16,7 +16,7 @@ public class Ej2 {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse("./src/BoletinXML/web1.html");
+            Document doc = db.parse("./src/BoletinXML/Ej2XML/web1.html");
             Element raiz = doc.getDocumentElement();
             Element titulo = (Element) raiz.getElementsByTagName("title").item(0);
 
@@ -69,7 +69,7 @@ public class Ej2 {
                 if (elemento.getAttribute("class").equals("noticia")) {
                     String titular = elemento.getElementsByTagName("h2").item(0).getTextContent();
                     System.out.println("Titular: " + titular);
-                    String textoDesc = ((Element)elemento.getElementsByTagName("p").item(0)).getTextContent();
+                    String textoDesc = elemento.getElementsByTagName("p").item(0).getTextContent();
                     System.out.println("Descipcion: " + textoDesc);
                 }
             }
