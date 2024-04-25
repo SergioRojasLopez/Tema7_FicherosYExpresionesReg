@@ -9,6 +9,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 public class Ej2 {
     public static void main(String[] args) {
@@ -58,21 +59,25 @@ public class Ej2 {
                     NodeList acciones = elemento.getElementsByTagName("li");
                     System.out.println("Menu: ");
                     for (int j = 0; j < acciones.getLength();j++){
-                        Element elemento2 = (Element) acciones.item(j);
-                        System.out.println(elemento2.getTextContent());
+                        System.out.println(acciones.item(j).getTextContent() + "\n");
                     }
                 }
             }
             NodeList todasNoticias = doc.getElementsByTagName("div");
-            for (int i = 0; i < todosLosDivisores.getLength(); i++) {
+            for (int i = 0; i < todasNoticias.getLength(); i++) {
                 Element elemento = (Element) todasNoticias.item(i);
                 if (elemento.getAttribute("class").equals("noticia")) {
                     String titular = elemento.getElementsByTagName("h2").item(0).getTextContent();
                     System.out.println("Titular: " + titular);
                     String textoDesc = elemento.getElementsByTagName("p").item(0).getTextContent();
-                    System.out.println("Descipcion: " + textoDesc);
+                    System.out.println("Descipcion: " + textoDesc + "\n");
                 }
             }
+            //Si un atributo tiene mas de dos palabras y quieres buscarlo,
+            //en este caso noticia se puede usar una expresión regular.
+            //Pattern patron = Pattern.compile("\bnoticia\b");
+            // \b sirve como frontera entre la palabra buscada y las no buscadas
+
         } catch (ParserConfigurationException | SAXException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
