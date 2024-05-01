@@ -18,7 +18,7 @@ public class Ej9 {
 
         Path path = Paths.get(".\\src\\Boletin1\\pruebaEj9\\matriculas");
         Path path2 = Paths.get(".\\src\\Boletin1\\pruebaEj9\\matriculasNuevas");
-        Pattern pt = Pattern.compile("\\p{L}+\\s(\\d{4}-[A-Z&&[^AEIOU]]{3})");
+        Pattern pt = Pattern.compile("\\p{L}+\\s(\\d{4}-[A-Z&&[^AEIOU]]{3})"); //4 digitos, un guión (-) y 3 letras mayúsculas.
 
         try (BufferedWriter writer = Files.newBufferedWriter(path2, StandardOpenOption.TRUNCATE_EXISTING,StandardOpenOption.CREATE);
              Stream<String> lineas = Files.lines(path)) {
@@ -32,7 +32,6 @@ public class Ej9 {
                             throw new RuntimeException("Ha ocurrido un error");
                         }
                     });
-
         } catch (IOException e) {
             throw new RuntimeException("Ha ocurrido un error");
         }

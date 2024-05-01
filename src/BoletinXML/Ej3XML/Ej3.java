@@ -137,11 +137,7 @@ public class Ej3 {
                 }
             }
 
-        } catch (ParserConfigurationException | SAXException | IOException e) {
-            throw new RuntimeException(e);
-        } catch (TransformerConfigurationException e) {
-            throw new RuntimeException(e);
-        } catch (TransformerException e) {
+        } catch (ParserConfigurationException | SAXException | IOException | TransformerException e) {
             throw new RuntimeException(e);
         }
     }

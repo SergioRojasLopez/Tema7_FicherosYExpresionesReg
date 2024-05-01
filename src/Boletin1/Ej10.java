@@ -17,6 +17,7 @@ public class Ej10 {
         Path ficheroOrigen = Paths.get(".\\src\\Boletin1\\ficheroEj10Origen");
         Path direcDestino = Paths.get(".\\src\\Boletin1");
         Pattern patron = Pattern.compile("^F\\s(\\p{L}{3,}\\.\\p{L}{3})$");
+        //Patron -> Empieza por F, después un espacio y luego nombre de fichero con al menos 3 letras, un punto y extension de 3 letras exactas.
         AtomicBoolean correcto = new AtomicBoolean(true);
 
         try (Stream<String> lineas = Files.lines(ficheroOrigen, StandardCharsets.UTF_8)) {

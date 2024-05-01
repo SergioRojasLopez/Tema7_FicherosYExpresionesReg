@@ -21,8 +21,22 @@ public class Ej1 {
             }
             System.out.println("La palabra razón se ha encontrado " + cont);
 
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+        try (BufferedReader bf = new BufferedReader(new FileReader(fichero))) {
+            String linea;
+            String patronTilde = "\\b[áéíóú]|\\s[Ññ]\\b";
+            Pattern patron = Pattern.compile(patronTilde);
+            int cont = 0;
+            while ((linea = bf.readLine()) != null) {
+                Matcher matronazo = patron.matcher(linea);
+                while (matronazo.find()) {
+                    cont++;
+                }
+            }
+            System.out.println("La palabra razón se ha encontrado " + cont);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
