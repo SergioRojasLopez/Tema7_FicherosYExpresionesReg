@@ -2,6 +2,7 @@ package Examen2022_2023.parte2;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
@@ -19,7 +20,7 @@ public class Ej2 {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse("./src/Examen2022-2023/Ej2/simpsons.xml");
+            Document doc = db.parse("./src/Examen2022_2023/parte2/simpsons.xml");
 
             NodeList fechas = doc.getElementsByTagName("fecha_emision");
 
@@ -41,10 +42,11 @@ public class Ej2 {
                 String [] sinopSplit = sinopsis.getTextContent().split(" ");
                 if (sinopSplit.length <= 30){
 
+
                 }
             }
 
-            File f = new File("./src/Examen2022-2023/Ej2/simpsons2.xml");
+            File f = new File("./src/Examen2022_2023/Ej2/simpsons2.xml");
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
