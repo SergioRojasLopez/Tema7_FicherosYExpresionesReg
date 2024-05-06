@@ -1,8 +1,6 @@
-package Examen2022_2023;
+package Examen2022_2023.Ej1;
 
-import javax.swing.*;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,8 +37,10 @@ public class Ej1 {
         try (Stream<Path> st = Files.list(origen)) {
             st.filter(path -> {
                 try {
-                    if (Files.size(path) > 1024 && Files.isRegularFile(path) && path.endsWith(".txt")) {
+                    //Si el archivo tiene mas de 1024 bytes, es fichero regular, termina por .txt y empieza por copiar
+                    if (Files.size(path) > 1024 && Files.isRegularFile(path) && path.getFileName().endsWith(".txt")) {
                         try (BufferedReader br = Files.newBufferedReader(path)) {
+                            //Si el archivo empieza por copiar devuelve true
                             if (br.readLine().toLowerCase().startsWith("copiar")) {
                                 return true;
                             }
@@ -50,9 +50,10 @@ public class Ej1 {
                     System.out.println("Error al leer el fichero");
                 }
                 return false;
+                //Por cada arhcivo que cumpla la condicion se copia a otro archivo nuevo
             }).forEach(path -> {
                 try {
-                    Files.copy(path, destino.resolve(path.getFileName()));
+                    Files.copy(path, destino.resolve(path.getFileName().toString()));
                 } catch (IOException e) {
                     System.out.println("Error al copiar el fichero: " + path.getFileName());
                 }

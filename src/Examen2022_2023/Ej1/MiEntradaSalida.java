@@ -1,4 +1,4 @@
-package Examen2022_2023;
+package Examen2022_2023.Ej1;
 
 import java.util.Locale;
 import java.util.NoSuchElementException;
