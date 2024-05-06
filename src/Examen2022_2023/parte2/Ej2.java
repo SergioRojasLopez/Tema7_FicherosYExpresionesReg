@@ -2,10 +2,8 @@ package Examen2022_2023.parte2;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -47,32 +45,14 @@ public class Ej2 {
             }
 
             File f = new File("./src/Examen2022-2023/Ej2/simpsons2.xml");
-
-            Transformer transformer = null;
-            try {
-                transformer = TransformerFactory.newInstance().newTransformer();
-            } catch (TransformerConfigurationException e) {
-                throw new RuntimeException(e);
-            }
-
+            Transformer transformer = TransformerFactory.newInstance().newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-
             transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-
             StreamResult result = new StreamResult(f);
-
             DOMSource source = new DOMSource(doc);
+            transformer.transform(source, result);
 
-            try {
-                try {
-                    transformer.transform(source, result);
-                } catch (TransformerException e) {
-                    throw new RuntimeException(e);
-                }
-            } catch (RuntimeException e) {
-                throw new RuntimeException(e);
-            }
-        } catch (ParserConfigurationException | IOException | SAXException e) {
+        } catch (ParserConfigurationException | IOException | SAXException | TransformerException e) {
             throw new RuntimeException(e);
         }
     }
