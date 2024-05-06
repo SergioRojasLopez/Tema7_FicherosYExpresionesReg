@@ -1,4 +1,4 @@
-package Examen2022_2023.Ej2;
+package Examen2022_2023.parte2;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -36,17 +36,17 @@ public class Ej2 {
 
 
             NodeList capitulos = doc.getElementsByTagName("capitulo");
+
             for (int i = 0; i < capitulos.getLength(); i++) {
                 Element capitulo = (Element) capitulos.item(i);
-                String sinopsis = capitulo.getElementsByTagName("sinopsis").item(0).getTextContent();
+                Element sinopsis = (Element)capitulo.getElementsByTagName("sinopsis").item(0);
+                String [] sinopSplit = sinopsis.getTextContent().split(" ");
+                if (sinopSplit.length <= 30){
 
-
+                }
             }
 
             File f = new File("./src/Examen2022-2023/Ej2/simpsons2.xml");
-
-            // 2º Creamos una nueva instancia del transformador a través de la fábrica de
-            // transformadores.
 
             Transformer transformer = null;
             try {
@@ -55,24 +55,13 @@ public class Ej2 {
                 throw new RuntimeException(e);
             }
 
-            // 3º Establecemos algunas opciones de salida, como por ejemplo, la codificación
-            // de salida.
-
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 
             transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 
-            // 4º Creamos el StreamResult, que intermediará entre el transformador y el
-            // archivo de destino.
-
             StreamResult result = new StreamResult(f);
 
-            // 5º Creamos el DOMSource, que intermediará entre el transformador y el árbol
-            // DOM.
-
             DOMSource source = new DOMSource(doc);
-
-            // 6º Realizamos la transformación.
 
             try {
                 try {
@@ -83,11 +72,7 @@ public class Ej2 {
             } catch (RuntimeException e) {
                 throw new RuntimeException(e);
             }
-        } catch (ParserConfigurationException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (SAXException e) {
+        } catch (ParserConfigurationException | IOException | SAXException e) {
             throw new RuntimeException(e);
         }
     }

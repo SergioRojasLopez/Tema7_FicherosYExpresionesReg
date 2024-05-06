@@ -1,4 +1,4 @@
-package BoletinXML.Ej1ExpReg;
+package BoletinXML.Ej4ExpReg;
 
 import java.io.*;
 import java.util.regex.Matcher;
@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 public class Ej1 {
     public static void main(String[] args) {
-        File fichero = new File("./src/BoletinXML/Ej1ExpReg/quijote.txt");
+        File fichero = new File("./src/BoletinXML/Ej4ExpReg/quijote.txt");
 
         try (BufferedReader bf = new BufferedReader(new FileReader(fichero))) {
             String linea;
