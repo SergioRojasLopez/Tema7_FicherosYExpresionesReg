@@ -20,7 +20,7 @@ public class Ej2 {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse("./src/Examen2022_2023/parte2/simpsons.xml");
+            Document doc = db.parse(".\\src\\Examen2022_2023\\parte2\\simpsons.xml");
 
             NodeList fechas = doc.getElementsByTagName("fecha_emision");
 
@@ -33,26 +33,48 @@ public class Ej2 {
                 }
             }
 
-
             NodeList capitulos = doc.getElementsByTagName("capitulo");
 
             for (int i = 0; i < capitulos.getLength(); i++) {
                 Element capitulo = (Element) capitulos.item(i);
                 Element sinopsis = (Element)capitulo.getElementsByTagName("sinopsis").item(0);
-                String [] sinopSplit = sinopsis.getTextContent().split(" ");
-                if (sinopSplit.length <= 30){
 
-
+                if (sinopsis != null && !sinopsis.getTextContent().trim().isEmpty()) {
+                    String[] sinopSplit = sinopsis.getTextContent().trim().split(" ");
+                    if (sinopSplit.length < 30) {
+                        capitulo.removeChild(sinopsis);
+                        i--; // Ajustar el índice para revisar el siguiente elemento
+                    }
                 }
             }
 
-            File f = new File("./src/Examen2022_2023/Ej2/simpsons2.xml");
+            File f = new File(".\\src\\Examen2022_2023\\parte2\\simpsons2.xml");
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
             StreamResult result = new StreamResult(f);
             DOMSource source = new DOMSource(doc);
             transformer.transform(source, result);
+
+
+            NodeList simpsons = doc.getElementsByTagName("capitulo");
+            for (int i = 0; i < simpsons.getLength();i++){
+                Element capitulo = (Element) simpsons.item(i);
+                Element sinopsis = (Element)capitulo.getElementsByTagName("sinopsis").item(0);
+                if (sinopsis != null && !sinopsis.getTextContent().isEmpty()){
+                    String sinopText = sinopsis.getTextContent();
+                    sinopText = sinopText.replaceAll("(Lisa|Bart)", "**$1**");
+                    sinopsis.setTextContent(sinopText);
+                }
+
+                File f2 = new File(".\\src\\Examen2022_2023\\parte2\\simpsons3.xml");
+                Transformer transformer2 = TransformerFactory.newInstance().newTransformer();
+                transformer2.setOutputProperty(OutputKeys.INDENT, "yes");
+                transformer2.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+                StreamResult result2 = new StreamResult(f2);
+                DOMSource source2 = new DOMSource(doc);
+                transformer2.transform(source2, result2);
+            }
 
         } catch (ParserConfigurationException | IOException | SAXException | TransformerException e) {
             throw new RuntimeException(e);
