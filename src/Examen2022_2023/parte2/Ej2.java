@@ -5,6 +5,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -13,6 +14,8 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Ej2 {
     public static void main(String[] args) {
@@ -21,7 +24,9 @@ public class Ej2 {
         try {
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.parse(".\\src\\Examen2022_2023\\parte2\\simpsons.xml");
+            Element raiz = doc.getDocumentElement();
 
+            //Apartado 1
             NodeList fechas = doc.getElementsByTagName("fecha_emision");
 
             for (int i = 0; i < fechas.getLength(); i++) {
@@ -33,18 +38,29 @@ public class Ej2 {
                 }
             }
 
+            //Apartado 2
             NodeList capitulos = doc.getElementsByTagName("capitulo");
 
-            for (int i = 0; i < capitulos.getLength(); i++) {
+           /* for (int i = 0; i < capitulos.getLength(); i++) {
                 Element capitulo = (Element) capitulos.item(i);
-                Element sinopsis = (Element)capitulo.getElementsByTagName("sinopsis").item(0);
-
+                Element sinopsis = (Element) capitulo.getElementsByTagName("sinopsis").item(0);
                 if (sinopsis != null && !sinopsis.getTextContent().trim().isEmpty()) {
                     String[] sinopSplit = sinopsis.getTextContent().trim().split(" ");
                     if (sinopSplit.length < 30) {
                         capitulo.removeChild(sinopsis);
-                        i--; // Ajustar el índice para revisar el siguiente elemento
+                        i--;
                     }
+                }
+            }*/
+
+            Pattern patron = Pattern.compile("\\p{L}+");
+            for (int i = 0; i < capitulos.getLength(); i++) {
+                Element capitulo = (Element) capitulos.item(i);
+                Element sinopsis = (Element) capitulo.getElementsByTagName("sinopsis").item(0);
+                Matcher m = patron.matcher(sinopsis.getTextContent());
+                if (m.results().count() <= 30){
+                    raiz.removeChild(capitulo);
+                    i--;
                 }
             }
 
@@ -57,11 +73,13 @@ public class Ej2 {
             transformer.transform(source, result);
 
 
+            //Apartado 3
             NodeList simpsons = doc.getElementsByTagName("capitulo");
-            for (int i = 0; i < simpsons.getLength();i++){
+
+            for (int i = 0; i < simpsons.getLength(); i++) {
                 Element capitulo = (Element) simpsons.item(i);
-                Element sinopsis = (Element)capitulo.getElementsByTagName("sinopsis").item(0);
-                if (sinopsis != null && !sinopsis.getTextContent().isEmpty()){
+                Element sinopsis = (Element) capitulo.getElementsByTagName("sinopsis").item(0);
+                if (sinopsis != null && !sinopsis.getTextContent().isEmpty()) {
                     String sinopText = sinopsis.getTextContent();
                     sinopText = sinopText.replaceAll("(Lisa|Bart)", "**$1**");
                     sinopsis.setTextContent(sinopText);
